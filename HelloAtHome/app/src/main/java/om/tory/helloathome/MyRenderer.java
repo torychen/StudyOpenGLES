@@ -69,7 +69,7 @@ class MyRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         mProgram = glCreateProgram();
         int vertexShader = loadShader(GL_VERTEX_SHADER, VERTEX_SHADER);
