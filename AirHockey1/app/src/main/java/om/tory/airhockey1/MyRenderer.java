@@ -33,7 +33,7 @@ import static android.opengl.GLES20.glViewport;
 
 class MyRenderer implements GLSurfaceView.Renderer {
     private static final String TAG = "MyRenderer";
-    private final Context mContext;
+    private Context mContext;
     private static final int POSITION_COMPONENT_COUNT = 2;
     private static final int BYTES_PER_FLOAT = 4;
     private  FloatBuffer vertexData;
@@ -46,17 +46,12 @@ class MyRenderer implements GLSurfaceView.Renderer {
 
     public MyRenderer(Context context) {
         mContext = context;
-    }
-
-    @Override
-    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
         float[] tableVertices = {
-              0f, 0f,
-              0f, 14f,
-              9f, 14f,
-              9f, 0f
+                0f, 0f,
+                0f, 14f,
+                9f, 14f,
+                9f, 0f
         };
 
         float[] tableVerticesWithTriangle = {
@@ -82,6 +77,12 @@ class MyRenderer implements GLSurfaceView.Renderer {
                 .asFloatBuffer();
 
         vertexData.put(tableVerticesWithTriangle);
+    }
+
+    @Override
+    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+
 
         String vertexShaderSource = TextResourceReader.readTextFileFromResource(mContext, R.raw.simple_vertex_shader);
         String fragmentShaderSource = TextResourceReader.readTextFileFromResource(mContext, R.raw.simple_fragment_shader);
