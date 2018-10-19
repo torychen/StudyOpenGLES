@@ -1,5 +1,6 @@
 package om.tory.airhockey1;
 
+import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 import java.nio.ByteBuffer;
@@ -9,15 +10,23 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import om.tory.util.ShaderHelper;
+import om.tory.util.TextResourceReader;
+
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
 import static android.opengl.GLES20.glClear;
 import static android.opengl.GLES20.glClearColor;
 import static android.opengl.GLES20.glViewport;
 
 class MyRenderer implements GLSurfaceView.Renderer {
+    private final Context mContext;
     private static final int POSITION_COMPONENT_COUNT = 2;
     private static final int BYTES_PER_FLOAT = 4;
     private  FloatBuffer vertexData;
+
+    public MyRenderer(Context context) {
+        mContext = context;
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
@@ -53,6 +62,16 @@ class MyRenderer implements GLSurfaceView.Renderer {
                 .asFloatBuffer();
 
         vertexData.put(tableVerticesWithTriangle);
+
+        String vertexShaderSource = TextResourceReader.readTextFileFromResource(mContext, R.raw.simple_vertex_shader);
+        String fragmentShaderSource = TextResourceReader.readTextFileFromResource(mContext, R.raw.simple_fragment_shader);
+
+        int vertexShader = ShaderHelper.compileVertexShader(vertexShaderSource);
+        int fragmenShader = ShaderHelper.compileFragmentShader(fragmentShaderSource);
+        int program;
+        if (vertexShader != 0 && fragmenShader != 0) {
+            program = ShaderHelper.linkProgram(vertexShader, fragmenShader);
+        }
 
     }
 

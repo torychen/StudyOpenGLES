@@ -1,4 +1,4 @@
-package om.tory.airhockey1;
+package om.tory.util;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -7,6 +7,8 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import om.tory.util.MyUtility;
+
 public class MainActivity extends AppCompatActivity {
 
     private GLSurfaceView mGlSurfaceView;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if (isSupportES2()) {
             mGlSurfaceView = new GLSurfaceView(this);
             mGlSurfaceView.setEGLContextClientVersion(2);
-            mGlSurfaceView.setRenderer(new MyRenderer());
+            mGlSurfaceView.setRenderer(new MyRenderer(this));
             mIsRendererSet = true;
 
             setContentView(mGlSurfaceView);
