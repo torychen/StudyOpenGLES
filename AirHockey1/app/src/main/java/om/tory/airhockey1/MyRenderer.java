@@ -44,16 +44,19 @@ class MyRenderer implements GLSurfaceView.Renderer {
     private static final String A_POSITION = "a_Position";
     private int aPositionLocation;
 
-    public MyRenderer(Context context) {
+    MyRenderer(Context context) {
         mContext = context;
 
+        /* not used
         float[] tableVertices = {
                 0f, 0f,
                 0f, 14f,
                 9f, 14f,
                 9f, 0f
         };
+        */
 
+        /* need to be normalized
         float[] tableVerticesWithTriangle = {
                 //Triangle 1
                 0f, 0f,
@@ -70,6 +73,28 @@ class MyRenderer implements GLSurfaceView.Renderer {
                 4.5f, 2f,
                 4.5f, 12
         };
+        */
+
+        float[] tableVerticesWithTriangle = {
+                // Triangle 1
+                -0.5f, -0.5f,
+                0.5f,  0.5f,
+                -0.5f,  0.5f,
+
+                // Triangle 2
+                -0.5f, -0.5f,
+                0.5f, -0.5f,
+                0.5f,  0.5f,
+
+                // Line 1
+                -0.5f, 0f,
+                0.5f, 0f,
+
+                // Mallets
+                0f, -0.25f,
+                0f,  0.25f
+        };
+
 
         vertexData = ByteBuffer
                 .allocateDirect(tableVerticesWithTriangle.length * BYTES_PER_FLOAT)
@@ -81,7 +106,7 @@ class MyRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 
         String vertexShaderSource = TextResourceReader.readTextFileFromResource(mContext, R.raw.simple_vertex_shader);
