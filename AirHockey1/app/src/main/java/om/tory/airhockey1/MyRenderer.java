@@ -38,6 +38,12 @@ class MyRenderer implements GLSurfaceView.Renderer {
     private static final int BYTES_PER_FLOAT = 4;
     private  FloatBuffer vertexData;
 
+    //For draw a circle.
+    private FloatBuffer vertexDataCircle;
+    final private int mTriangleNumOfCircle = 8;
+    final private float mROfCircle = 0.2f;
+    final private float delta = 360.0f / mTriangleNumOfCircle;
+
     private static final String U_COLOR = "u_Color";
     private int uColorLocation;
 
@@ -74,6 +80,20 @@ class MyRenderer implements GLSurfaceView.Renderer {
                 4.5f, 12
         };
         */
+        float [] tableVerticesOfCircle = new float[mTriangleNumOfCircle * 3 * POSITION_COMPONENT_COUNT];
+        int index = -1;
+        for (int i = 0; i < mTriangleNumOfCircle; i++) {
+                // share the center point(0f, 0f)
+                tableVerticesOfCircle[++index] = 0f;
+                tableVerticesOfCircle[++index] = 0f;
+
+                // x = r*cos(theta), y = r*sin()
+                tableVerticesOfCircle[++index] = mROfCircle * (float) Math.cos(delta);
+                tableVerticesOfCircle[++index] = mROfCircle * (float) Math.sin(delta);
+
+                tableVerticesOfCircle[++index] = mROfCircle * (float) Math.cos(delta);
+                tableVerticesOfCircle[++index] = mROfCircle * (float) Math.sin(delta);
+        }
 
         float[] tableVerticesWithTriangle = {
                 // Triangle 1
